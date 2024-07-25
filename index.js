@@ -1,33 +1,29 @@
 const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-
 const app = express()
 
 
-app.use(express.json())
 
-morgan.token('req-body',(req) =>  JSON.stringify(req.body))
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms - Body: :req-body'))
-app.use(cors)
-app.use(express.static('dist'))
+// morgan.token('req-body',(req) =>  JSON.stringify(req.body))
+// app.use(morgan(':method :url :status :res[content-length] - :response-time ms - Body: :req-body'))
+
+
 
 
 let data = [
     { 
-      "id": "1",
-      "name": "Arto Hellas", 
+        "id": "1",
+        "name": "Arto Hellas", 
       "number": "040-123456"
     },
     { 
-      "id": "2",
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
+        "id": "2",
+        "name": "Ada Lovelace", 
+        "number": "39-44-5323523"
     },
     { 
-      "id": "3",
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
+        "id": "3",
+        "name": "Dan Abramov", 
+        "number": "12-43-234345"
     },
     { 
       "id": "4",
@@ -35,6 +31,24 @@ let data = [
       "number": "39-23-6423122"
     }
 ]
+
+
+app.use(express.static('dist'))
+
+const requestLogger = (request, response, next) => {
+    console.log('Method:', request.method)
+    console.log('Path:  ', request.path)
+    console.log('Body:  ', request.body)
+    console.log('---')
+    next()
+  }
+
+// const morgan = require('morgan')
+const cors = require('cors')
+
+app.use(cors)
+app.use(express.json())
+app.use(requestLogger)
 
 
 // display all data from array data
@@ -116,4 +130,4 @@ app.post('/api/persons', (request, response) => {
 
 
 const PORT = process.env.PORT || 3001
-app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`);})
+app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)})
