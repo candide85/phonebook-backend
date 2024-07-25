@@ -46,14 +46,18 @@ const requestLogger = (request, response, next) => {
 // const morgan = require('morgan')
 const cors = require('cors')
 
-app.use(cors)
+app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
 
 
 // display all data from array data
 app.get('/api/persons', (request, response) => {
-    response.json(data)
+    try {
+        response.json(data)        
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 // display custom data
