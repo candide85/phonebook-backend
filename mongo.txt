@@ -1,0 +1,3 @@
+username: joela ; password: V1mQymIGh7i0ZHIs
+
+mongodb+srv://joela:V1mQymIGh7i0ZHIs@note-backend-api.pcnellf.mongodb.net/?retryWrites=true&w=majority&appName=note-backend-api
